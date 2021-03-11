@@ -3,10 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "cross-env NODE_ENV=production vite build && npm run copy",
     "serve": "vite preview",
     "prettier": "prettier",
-    "deploy-demo": "git push origin :gh-pages && git subtree push --prefix dist origin gh-pages"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
+    "copy": "cpy \"dist/index.html\" dist --rename=\"404.html\""
   },
   "dependencies": {
     "vue": "^3.0.5"
@@ -18,6 +20,9 @@
     "postcss": "^8.2.8",
     "prettier": "^2.2.1",
     "tailwindcss": "^2.0.3",
-    "vite": "^2.0.5"
+    "cross-env": "^7.0.3",
+    "vite": "^2.0.5",
+    "cpy-cli": "^3.1.1",
+    "gh-pages": "^3.1.0"
   }
 }
